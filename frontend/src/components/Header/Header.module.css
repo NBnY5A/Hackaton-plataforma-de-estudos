@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  height: 70px;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.logoIcon {
+  color: var(--primary-color);
+  font-size: 2rem !important;
+}
+
+.logoText {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.centerArea {
+  flex: 2;
+  text-align: center;
+}
+
+.platformName {
+  font-size: 1rem;
+  color: var(--text-sub);
+  font-weight: 400;
+}
+
+.buttonArea {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  flex: 1;
+}
