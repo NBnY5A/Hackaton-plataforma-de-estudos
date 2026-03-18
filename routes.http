@@ -1,0 +1,28 @@
+GET http://localhost:3000/tarefas
+
+###
+
+POST http://localhost:3000/tarefa
+Content-Type: application/json
+
+{
+    "titulo": "tarefa 4",
+    "descricao": "descricao da tarefa 4",
+    "categoria": "estudo"
+}
+
+###
+
+
+PUT http://localhost:3000/tarefa/tarefa 1
+Content-Type: application/json
+
+{
+    "titulo": "tarefa 1",
+    "descricao": "descricao da tarefa 1 new",
+    "categoria": "estudo"
+}
+
+###
+
+DELETE http://localhost:3000/tarefa/tarefa 4
