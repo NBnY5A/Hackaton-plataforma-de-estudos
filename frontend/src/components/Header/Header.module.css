@@ -3,9 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--surface-color);
+  background-color: rgba(11, 17, 32, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   height: 70px;
+  position: sticky;
 }
 
 .logoArea {
