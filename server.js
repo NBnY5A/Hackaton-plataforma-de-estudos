@@ -1,86 +1,54 @@
 import express from 'express'
+import 'dotenv/config';
+import postgres from 'postgres';
+import { Database } from './database-pg.js'
+
 const server = express()
 const port = 3000
+const database = new Database()
+
+export const sql = postgres(process.env.DATABASE_URL, {ssl: 'require', prepare: false})
 
 server.use(express.json());
 
-let tarefas = [
-  {
-    titulo: "tarefa 1",
-    descricao: "descricao da tarefa 1",
-    categoria: "estudo"
-  },
-  {
-    titulo: "tarefa 2",
-    descricao: "descricao da tarefa 2",
-    categoria: "estudo"
-  },
-  {
-    titulo: "tarefa 3",
-    descricao: "descricao da tarefa 3",
-    categoria: "estudo"
-  }  
-]
+server.get('/tarefas', async (req, res) => {
+  const filtroTitulo = req.query.titulo
+  const tarefas = await database.list(filtroTitulo)
 
-function getTarefaIndexByTitulo (tarefas,titulo) {
-  return tarefas.findIndex(tarefa =>
-      tarefa.titulo.toLowerCase() === titulo.toLowerCase()
-    )
-}
-
-server.get('/tarefas', (req, res) => {
-  res.json(tarefas)
+  return res.json(tarefas)
 })
 
-server.post('/tarefa', (req, res) => {
-  const tarefaIndex = getTarefaIndexByTitulo(tarefas,req.body.titulo)
+server.post('/tarefa', async (req, res) => {
+  const {titulo, descricao, categoria} = req.body
 
- if (tarefaIndex !== -1) {
-    res.json({
-      "response": "tarefa com esse titulo ja cadastrada"
-    })
-    return
-  }
-
-  tarefas.push(req.body)
-    res.json({
-      "response": "inserindo tarefa: "+req.body.titulo
-    })
-})
-
-server.put('/tarefa/:titulo', (req, res) => {
-  const tarefaIndex = getTarefaIndexByTitulo(tarefas,req.params.titulo)
-
- if (tarefaIndex === -1) {
-    res.json({
-      "response": "tarefa nao encontrada"
-    })
-    return
-  }
-
-  tarefas[tarefaIndex] = {...req.body}
-
-  res.json({
-    "response": "atualizando tarefa: "+req.params.titulo,
-    "update": tarefas[tarefaIndex]
+  await database.create({
+    titulo: titulo,
+    descricao: descricao,
+    categoria: categoria
   })
+
+  return res.status(201).send()
 })
 
-server.delete('/tarefa/:titulo', (req, res) => {
-  const tarefaIndex = getTarefaIndexByTitulo(tarefas,req.params.titulo)  
+server.put('/tarefa/:id', async (req, res) => {
+  const id = req.params.id
+  const {titulo, descricao, categoria} = req.body
 
- if (tarefaIndex === -1) {
-    res.json({
-      "response": "tarefa nao encontrada"
+    const tarefa = await database.update(id,{
+        titulo: titulo,
+        descricao: descricao,
+        categoria: categoria
     })
-    return
-  }
 
-  tarefas.splice(tarefaIndex,1)
+  return res.status(204).send()
+})
 
-  res.json({
-    "response": "tarefa deletada: "+req.params.titulo
-  })
+server.delete('/tarefa/:id', async (req, res) => {
+  const id = req.params.id
+
+  await database.delete(id)
+
+  return res.status(204).send()
 })
 
 server.listen(port, () => {
