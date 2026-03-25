@@ -2,7 +2,7 @@
 
 Esta é a API de backend para a plataforma de estudos, construída com foco em performance, segurança e facilidade de integração para o frontend.
 
-## 🚀 Stack Tecnológica
+## Stack Tecnológica
 
 - **Runtime:** Node.js (ES Modules)
 - **Framework:** Express.js
@@ -14,7 +14,7 @@ Esta é a API de backend para a plataforma de estudos, construída com foco em p
 
 ---
 
-## 🛠️ Como rodar o projeto
+## Como rodar o projeto
 
 1. **Instalar dependências:**
    ```bash
@@ -47,7 +47,7 @@ Esta é a API de backend para a plataforma de estudos, construída com foco em p
 
 ---
 
-## 🔐 Autenticação (Guia para Frontend)
+## Autenticação (Guia para Frontend)
 
 A API utiliza tokens JWT para proteger as rotas. 
 
@@ -74,14 +74,19 @@ A API utiliza tokens JWT para proteger as rotas.
 | Rota | Método | Descrição |
 | :--- | :---: | :--- |
 | `/api/tasks` | `POST` | Cria uma tarefa (não precisa enviar userId no body) |
-| `/api/tasks` | `GET` | Lista todas as tarefas do usuário logado |
+| `/api/tasks` | `GET` | Lista tarefas com **paginação** e **filtros** (veja abaixo) |
 | `/api/tasks/:id` | `GET` | Busca uma tarefa específica |
-| `/api/tasks/:id` | `PUT` | Atualiza uma tarefa (título, descrição, categoria, status) |
+| `/api/tasks/:id` | `PUT` | Atualiza uma tarefa (gera `completedAt` se marcada como concluída) |
 | `/api/tasks/:id` | `DELETE` | Remove uma tarefa |
+
+#### Parâmetros de Query para `GET /api/tasks`:
+- `page`: Número da página (padrão: 1)
+- `limit`: Itens por página (padrão: 10)
+- `status`: Filtre por `completed` (para o histórico) ou `pending`.
 
 ---
 
-## 📝 Exemplos de JSON
+## Exemplos
 
 ### Criar Usuário (`POST /api/register`)
 ```json
@@ -103,8 +108,9 @@ A API utiliza tokens JWT para proteger as rotas.
 
 ---
 
-## 💡 Dicas para o Frontend
+## Dicas para o Frontend
 
 - **Tratamento de Erros:** Se a API retornar `401 Unauthorized`, redirecione o usuário para a tela de login (o token expirou ou é inválido).
 - **Dados do Usuário:** Use a rota `GET /api/me` logo após o login para carregar o perfil do usuário no estado global do seu app.
-- **Isolamento:** Você não precisa se preocupar em filtrar as tarefas por ID de usuário; o backend já faz esse isolamento automaticamente com base no token enviado.
+- **Histórico:** As tarefas concluídas possuem o campo `completedAt`. Para exibir o histórico no React, basta chamar `/api/tasks?status=completed`.
+

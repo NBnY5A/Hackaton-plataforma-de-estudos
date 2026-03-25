@@ -17,7 +17,10 @@ export const createTaskController = async (req, res) => {
 
 export const getTasksController = async (req, res) => {
     try {
-        const tasks = await getTasks(req.userId);
+        const { page = 1, limit = 10, status } = req.query;
+        const completed = status === 'completed' ? true : status === 'pending' ? false : null;
+        
+        const tasks = await getTasks(req.userId, Number(page), Number(limit), completed);
         res.status(200).json(tasks.map(responseTaskDTO));
     } catch (error) {
         res.status(500).json({ error: error.message });

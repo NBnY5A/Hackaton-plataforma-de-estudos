@@ -14,6 +14,7 @@ export const responseTaskDTO = (task) => {
         title: task.title,
         description: task.description,
         completed: task.completed,
+        completedAt: task.completedAt,
         category: task.category,
         userId: task.userId
     }

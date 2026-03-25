@@ -16,6 +16,15 @@ export const deleteById = async (id) => {
     return await prisma.task.delete({ where: { id: Number(id) } });
 }
 
-export const findByUserId = async (userId) => {
-    return await prisma.task.findMany({ where: { userId: Number(userId) } });
+export const findByUserId = async (userId, skip = 0, take = 10, completed = null) => {
+    const where = { userId: Number(userId) };
+    if (completed !== null) {
+        where.completed = completed;
+    }
+    return await prisma.task.findMany({
+        where,
+        skip: Number(skip),
+        take: Number(take),
+        orderBy: { id: 'desc' }
+    });
 }
