@@ -1,4 +1,4 @@
-# Node.js Study API (Backend)
+# Node.js Kizathon (Backend)
 
 Esta é a API de backend para a plataforma de estudos, construída com foco em performance, segurança e facilidade de integração para o frontend.
 
