@@ -19,12 +19,13 @@ server.get('/tarefas', async (req, res) => {
 })
 
 server.post('/tarefa', async (req, res) => {
-  const {titulo, descricao, categoria} = req.body
+  const {titulo, descricao, categoria, finalizada} = req.body
 
   await database.create({
     titulo: titulo,
     descricao: descricao,
-    categoria: categoria
+    categoria: categoria,
+    finalizada: finalizada
   })
 
   return res.status(201).send()
@@ -32,12 +33,13 @@ server.post('/tarefa', async (req, res) => {
 
 server.put('/tarefa/:id', async (req, res) => {
   const id = req.params.id
-  const {titulo, descricao, categoria} = req.body
+  const {titulo, descricao, categoria, finalizada} = req.body
 
     const tarefa = await database.update(id,{
         titulo: titulo,
         descricao: descricao,
-        categoria: categoria
+        categoria: categoria,
+        finalizada: finalizada
     })
 
   return res.status(204).send()

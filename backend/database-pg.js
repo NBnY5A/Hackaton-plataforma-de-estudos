@@ -5,8 +5,8 @@ export class Database {
 
     async create(tarefa) {
         const id = randomUUID()
-        const {titulo,descricao,categoria} = tarefa
-        await sql`insert into tarefas (id,titulo,descricao,categoria) values (${id},${titulo},${descricao},${categoria})` 
+        const {titulo,descricao,categoria, finalizada} = tarefa
+        await sql`insert into tarefas (id,titulo,descricao,categoria, finalizada) values (${id},${titulo},${descricao},${categoria},${finalizada})` 
     }
 
     async list (tituloFiltro) {
@@ -23,9 +23,9 @@ export class Database {
     }
 
     async update(id, tarefa) {
-        const {titulo,descricao,categoria} = tarefa 
+        const {titulo,descricao,categoria,finalizada} = tarefa 
 
-        await sql`update tarefas set titulo=${titulo},categoria=${categoria},descricao=${descricao} where id=${id}`
+        await sql`update tarefas set titulo=${titulo},categoria=${categoria},descricao=${descricao},finalizada=${finalizada} where id=${id}`
     }
 
     async delete(id) {
