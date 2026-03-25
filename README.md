@@ -1,14 +1,13 @@
 # Node.js Kizathon (Backend)
 
-Esta é a API de backend para a plataforma de estudos, construída com foco em performance, segurança e facilidade de integração para o frontend.
+Esta é a API backend para a plataforma de estudos do kizathon, construída para integração com frontend.
 
 ## Stack Tecnológica
 
-- **Runtime:** Node.js (ES Modules)
 - **Framework:** Express.js
 - **Banco de Dados:** PostgreSQL (via Docker)
 - **ORM:** Prisma
-- **Autenticação:** JWT (JSON Web Token)
+- **Autenticação:** JWT
 - **Validação:** Zod
 - **Segurança:** Bcrypt (hashing de senhas)
 
