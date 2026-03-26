@@ -3,7 +3,6 @@ import Tarefas from "./components/Tarefas";
 import NovaTarefa from "./components/NovaTarefa";
 
 function App() {
-  const [legenda, setLegenda] = useState();
   // 1. Estados para armazenar os dados, carregamento e erros
   const [tarefas, setTarefas] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -92,9 +91,9 @@ function App() {
   return (
     <div>
       <div className="tarefas">
-        <h1 className="text-white text-3xl font-mono">legenda {legenda}</h1>
+        <h1 className="text-white text-3xl font-mono">Tarefas</h1>
 
-        {/*<NovaTarefa />*/}
+        <NovaTarefa />
 
         <div className="lista-tarefas">
           <Tarefas
