@@ -1,15 +1,47 @@
-function ListaTarefas() {
+import { useState } from "react";
+
+function ListaTarefas(props) {
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [categoria, setCategoria] = useState("");
+
   return (
     <div className="nova-tarefa">
       <label htmlFor="titulo">Titulo</label>
-      <input type="text" placeholder="titulo" name="titulo" />
+      <input
+        value={titulo}
+        onChange={(event) => {
+          setTitulo(event.target.value);
+        }}
+        type="text"
+        placeholder="titulo x"
+        name="titulo"
+      />
       <label htmlFor="descricao">Descricao</label>
-      <input type="text" placeholder="descricao" name="descricao" />
+      <input
+        value={descricao}
+        onChange={(event) => {
+          setDescricao(event.target.value);
+        }}
+        type="text"
+        placeholder="descricao x"
+        name="descricao"
+      />
       <label htmlFor="categorias">Categoria</label>
-      <input type="text" placeholder="categoria" name="categoria" />
+      <input
+        value={categoria}
+        onChange={(event) => {
+          setCategoria(event.target.value);
+        }}
+        type="text"
+        placeholder="categoria x"
+        name="categoria"
+      />
       <button
         className="btn-nova-tarefa"
-        onClick={() => setLegenda("nova tarefa criada!")}
+        onClick={() => {
+          props.onNovaTarefaSubmit(titulo, descricao, categoria);
+        }}
       >
         Criar nova tarefa
       </button>

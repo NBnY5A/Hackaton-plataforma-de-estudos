@@ -88,12 +88,37 @@ function App() {
     fetchtarefas();
   }
 
+  async function onNovaTarefaSubmit(titulo, descricao, categoria) {
+    if (
+      titulo.trim() == "" ||
+      descricao.trim() == "" ||
+      categoria.trim() == ""
+    ) {
+      return alert("preencha os campos!");
+    }
+
+    await fetch(`http://localhost:3000/tarefa`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        titulo: titulo,
+        descricao: descricao,
+        categoria: categoria,
+        finalizada: false,
+      }),
+    });
+
+    fetchtarefas();
+  }
+
   return (
     <div>
       <div className="tarefas">
         <h1 className="text-white text-3xl font-mono">Tarefas</h1>
 
-        <NovaTarefa />
+        <NovaTarefa onNovaTarefaSubmit={onNovaTarefaSubmit} />
 
         <div className="lista-tarefas">
           <Tarefas
