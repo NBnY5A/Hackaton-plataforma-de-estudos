@@ -14,7 +14,12 @@ app.use('/api', userRoutes);
 app.use('/api', taskRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+    if (process.env.PORT != null) {
+        console.log(`Server is running on port ${process.env.PORT}`);
+    }
+    else {
+        console.log(`Server is running on port 3000`);
+    }
 });
 
 export default app;
