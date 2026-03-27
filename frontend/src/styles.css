@@ -122,4 +122,9 @@ button {
 
 #Tarefas-title{
   padding-top: 15px;
+  font-weight: bolder;
+}
+
+#trash {
+  background-color: red;
 }

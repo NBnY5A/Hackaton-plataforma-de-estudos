@@ -39,6 +39,7 @@ function Tarefa(props) {
 
             <button
               className="hover:bg-[#d6d5a9]!"
+              id="trash"
               onClick={() => {
                 props.onDeleteClick(tarefa);
               }}
