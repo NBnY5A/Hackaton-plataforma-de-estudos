@@ -4,7 +4,7 @@ import styles from "./LoginModal.module.css";
 import { Close } from "@mui/icons-material";
 import useAuth from "../../hooks/useAuth";
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, onAuthSuccess}) => {
   const { login, register } = useAuth();
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [name, setName] = useState("");
@@ -33,6 +33,7 @@ const LoginModal = ({ onClose }) => {
       } else {
         await login(email, password);
       }
+      onAuthSuccess?.();
       onClose();
     } catch (error) {
       setError(error.message || "Houve um erro ao tentar autenticar");
