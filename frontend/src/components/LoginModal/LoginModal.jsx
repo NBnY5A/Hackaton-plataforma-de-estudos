@@ -9,14 +9,22 @@ const LoginModal = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
+    setError("");
+    setIsLoading(true)
+
     try {
       await login(email, password);
       onClose();
     } catch (error) {
       setError("Usuário ou senha inválido!");
+    } finally {
+      setIsLoading(false)
     }
   };
 
