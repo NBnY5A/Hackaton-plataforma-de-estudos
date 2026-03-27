@@ -6,11 +6,11 @@ import { findByEmail, createUser } from "./user.service.js";
 export const login = async (email, password) => {
     const user = await findByEmail(email);
     if (!user) {
-        throw new Error("User not found");
+        throw new Error("Usuário ou senha inválida");
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-        throw new Error("Invalid password");
+        throw new Error("Usuário ou senha inválida");
     }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
@@ -21,7 +21,7 @@ export const login = async (email, password) => {
 export const register = async (name, email, password) => {
     const user = await findByEmail(email);
     if (user) {
-        throw new Error("User already exists");
+        throw new Error("Usuário já cadastrado");
     }
     return await createUser({ name, email, password });
 };
