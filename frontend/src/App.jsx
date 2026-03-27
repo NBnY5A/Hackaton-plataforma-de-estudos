@@ -116,16 +116,20 @@ function App() {
   return (
     <div>
       <div className="tarefas">
-        <h1 className="text-white text-3xl font-mono">Tarefas</h1>
+        <h1 className="text-white text-3xl font-mono" id="Tarefas-title">Tarefas</h1>
 
         <NovaTarefa onNovaTarefaSubmit={onNovaTarefaSubmit} />
 
         <div className="lista-tarefas">
-          <Tarefas
-            tarefas={tarefas}
-            onTarefaClick={onTarefaClick}
-            onDeleteClick={onDeleteClick}
-          />
+          {tarefas.length === 0 ? (
+            <p id="empty-task">Nenhuma tarefa encontrada.</p>
+          ) : (
+            <Tarefas
+              tarefas={tarefas}
+              onTarefaClick={onTarefaClick}
+              onDeleteClick={onDeleteClick}
+            />
+          )}
         </div>
       </div>
     </div>

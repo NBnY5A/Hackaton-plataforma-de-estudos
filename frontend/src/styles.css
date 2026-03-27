@@ -115,3 +115,11 @@ button {
 .tarefa-categoria p {
   margin: 0;
 }
+
+#empty-task{
+  text-align: center;
+}
+
+#Tarefas-title{
+  padding-top: 15px;
+}
