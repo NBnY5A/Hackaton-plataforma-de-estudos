@@ -1,24 +1,28 @@
+import { apiRequest } from "../services/apiService";
+
 export default function useAuth() {
-    /* TODO: Ajustar a URL aqui para não ser localhost e sim apenas o endereço da api */
-    const login = async (email, password) => {
-        const response = await fetch("http://localhost:3000/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password
-            })
-        })
+  const login = async (email, password) => {
+    const data = await apiRequest("/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || "Erro no login");
-        }
+    localStorage.setItem("token", data.token);
+    return data;
+  };
 
-        return await response.json();
-    }
+  const register = async (name, email, password) => {
+    return await apiRequest("/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
+  };
 
-    return { login }
+  const logout = () => {
+    localStorage.removeItem("token");
+  }
+
+  const isAuthenticated = () => !!localStorage.getItem("token");
+
+  return { login, register, logout, isAuthenticated };
 }
