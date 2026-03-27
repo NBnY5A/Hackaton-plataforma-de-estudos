@@ -1,14 +1,20 @@
 import Header from "../../components/Header/Header";
 import Card from "../../components/Card/Card";
+import { useState } from "react";
 import { BarChart, FlashOn, Settings } from "@mui/icons-material";
 import styles from "./Home.module.css";
 import Button from "../../components/Button/Button";
+import LoginModal from "../../components/LoginModal/LoginModal";
 
 const Home = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
   return (
     <div>
-      <Header />
-
+      <Header onOpenLoginModal={() => setIsLoginModalOpen(true)} />
+      {isLoginModalOpen && (
+        <LoginModal onClose={() => setIsLoginModalOpen(false)} />
+      )}
       <section className={styles.hero}>
         <div className={styles.glowLeft}></div>
         <div className={styles.glowRight}></div>

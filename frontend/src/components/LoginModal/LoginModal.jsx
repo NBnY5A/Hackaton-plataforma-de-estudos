@@ -1,0 +1,77 @@
+import { useState } from "react";
+import Button from "../Button/Button";
+import styles from "./LoginModal.module.css";
+import { Close } from "@mui/icons-material";
+import { style } from "@mui/system";
+
+const LoginModal = ({ onClose }) => {
+  // const {login} = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(email, password);
+      onClose();
+    } catch (error) {
+      setError("Usuário ou senha inválido!");
+    }
+  };
+
+  return (
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.iconCloseButton} onClick={onClose}>
+          <Close />
+        </button>
+
+        <div className={styles.header}>
+          <h2>Bem-vindo de volta</h2>
+          <p>Insira seus dados para acessar sua conta</p>
+        </div>
+
+        {error && <p className={styles.error}>{error}</p>}
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">Senha</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.actions}>
+          <Button buttonContent="Entrar na conta" />
+          </div>
+
+        </form>
+        
+        <div className={styles.footer}>
+          <p>
+            Não possui uma conta? <span className={styles.signupLink}>Registrar</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LoginModal;
