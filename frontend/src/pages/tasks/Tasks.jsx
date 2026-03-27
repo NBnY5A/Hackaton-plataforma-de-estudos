@@ -1,52 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import styles from "./Tasks.module.css";
 import Button from "../../components/Button/Button";
-import { apiRequest } from "../../services/apiService";
+import useTaks from "../../hooks/useTasks";
+import TaskCard from "../../components/TaskCard/TaskCard";
 
 const Tasks = () => {
-  const [tasksList, setTasksList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const { logout } = useAuth();
+  const { tasksList, isLoading, error, createTask, deleteTask, updateTask } =
+    useTaks();
   const navigate = useNavigate();
 
-  const loadTasks = async () => {
-    try {
-      setError("");
-      const data = await apiRequest("/tasks");
-      setTasksList(Array.isArray(data) ? data : data.tasks || []);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
-
-  const handleCreateTask = async (e) => {
+  const handleCreateSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      setError("");
-      await apiRequest("/tasks", {
-        method: "POST",
-        body: JSON.stringify({ title, description, category }),
-      });
-      setTitle("");
-      setDescription("");
-      setCategory("");
-      await loadTasks();
-      setIsLoading(false);
-    } catch (error) {
-      setError(error.message);
-    }
+    await createTask({ title, description, category });
+    setTitle("");
+    setDescription("");
+    setCategory("");
   };
 
   const handleLogout = () => {
@@ -63,7 +38,7 @@ const Tasks = () => {
 
       {error && <p className={styles.error}>{error}</p>}
 
-      <form className={styles.form} onSubmit={handleCreateTask}>
+      <form className={styles.form} onSubmit={handleCreateSubmit}>
         <input
           type="text"
           placeholder="Título da tarefa"
@@ -87,28 +62,26 @@ const Tasks = () => {
           required
         />
 
-        <Button type="submit" buttonContent="Adicionar tarefa" />
+        <Button
+          type="submit"
+          buttonContent={isLoading ? "Aguarde..." : "Adicionar tarefa"}
+        />
       </form>
 
-      {isLoading ? (
-        <p>Carregando...</p>
-      ) : (
-        <section className={styles.list}>
-          {tasksList.length === 0 ? (
-            <p className={styles.empty}>
-              Você ainda não possui nenhuma tarefa{" "}
-            </p>
-          ) : (
-            tasksList.map((task) => (
-              <article key={task.id} className={styles.taskCard}>
-                <h3>{task.title}</h3>
-                <p>{description}</p>
-                <small>{task.completed ? "Concluída" : "Pendente"}</small>
-              </article>
-            ))
-          )}
-        </section>
-      )}
+      <section className={styles.list}>
+        {tasksList.map((task) => (
+          <TaskCard
+            key={task.id}
+            task={task}
+            onDelete={deleteTask}
+            onToggleComplete={(t) =>
+              updateTask(t.id, { completed: !t.completed })
+            }
+            onSaveEdit={updateTask}
+            isBusy = {isLoading}
+          />
+        ))}
+      </section>
     </main>
   );
 };
