@@ -1,4 +1,4 @@
-import { Trash } from "lucide-react";
+import { Trash, Pencil } from "lucide-react";
 
 function Tarefa(props) {
   return (
@@ -44,6 +44,15 @@ function Tarefa(props) {
               }}
             >
               <Trash />
+            </button>
+
+            <button
+              className="hover:bg-[#d6d5a9]!"
+              onClick={() => {
+                props.onDeleteClick(tarefa);
+              }}
+            >
+              <Pencil />
             </button>
           </div>
         </li>

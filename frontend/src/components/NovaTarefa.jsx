@@ -6,39 +6,42 @@ function ListaTarefas(props) {
   const [categoria, setCategoria] = useState("");
 
   return (
-    <div className="nova-tarefa">
-      <label htmlFor="titulo">Titulo</label>
+    <div className="nova-tarefa ">
+      <label htmlFor="titulo">Título</label>
       <input
+        className=""
         value={titulo}
         onChange={(event) => {
           setTitulo(event.target.value);
         }}
         type="text"
-        placeholder="titulo x"
+        placeholder="Informe o titulo..."
         name="titulo"
       />
-      <label htmlFor="descricao">Descricao</label>
+      <label htmlFor="descricao">Descrição</label>
       <input
+        className=""
         value={descricao}
         onChange={(event) => {
           setDescricao(event.target.value);
         }}
         type="text"
-        placeholder="descricao x"
+        placeholder="Informe a descricao..."
         name="descricao"
       />
       <label htmlFor="categorias">Categoria</label>
       <input
+        className=""
         value={categoria}
         onChange={(event) => {
           setCategoria(event.target.value);
         }}
         type="text"
-        placeholder="categoria x"
+        placeholder="Informe a categoria..."
         name="categoria"
       />
       <button
-        className="btn-nova-tarefa"
+        className="btn-nova-tarefa "
         onClick={() => {
           props.onNovaTarefaSubmit(titulo, descricao, categoria);
         }}

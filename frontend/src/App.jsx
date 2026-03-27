@@ -113,10 +113,12 @@ function App() {
     fetchtarefas();
   }
 
+  async function onEditarClick(tarefa) {}
+
   return (
-    <div>
+    <div className="">
       <div className="tarefas">
-        <h1 className="text-white text-3xl font-mono">Tarefas</h1>
+        <h1 className="text-white text-3xl font-mono text-al">Tarefas</h1>
 
         <NovaTarefa onNovaTarefaSubmit={onNovaTarefaSubmit} />
 
