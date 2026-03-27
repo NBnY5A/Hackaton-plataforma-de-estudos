@@ -2,10 +2,10 @@ import { useState } from "react";
 import Button from "../Button/Button";
 import styles from "./LoginModal.module.css";
 import { Close } from "@mui/icons-material";
-import { style } from "@mui/system";
+import useAuth from "../../hooks/useAuth";
 
 const LoginModal = ({ onClose }) => {
-  // const {login} = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -59,7 +59,7 @@ const LoginModal = ({ onClose }) => {
           </div>
 
           <div className={styles.actions}>
-          <Button buttonContent="Entrar na conta" />
+          <Button buttonContent="Entrar na conta" type="submit"/>
           </div>
 
         </form>
