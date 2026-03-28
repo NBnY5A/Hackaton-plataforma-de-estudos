@@ -68,7 +68,6 @@ Formata arquivos `js`, `jsx`, `css` e `html` com Prettier.
 - **Vite**
 - **React Router DOM**
 - **Material UI (MUI)**
-- **Axios**
 - **ESLint + Prettier**
 
 ---
@@ -82,7 +81,7 @@ Este frontend espera um backend rodando em:
 Se necessário, ajuste no arquivo `.env`:
 
 ```env
-VITE_API_URL=http://localhost:3000/api
+BACKEND_API_URL=http://localhost:3000/api
 ```
 
 ---
