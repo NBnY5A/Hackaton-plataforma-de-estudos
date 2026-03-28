@@ -30,8 +30,18 @@ const Tasks = () => {
 
   useEffect(() => {
     const loadUserProfile = async () => {
-      const userData = await apiRequest("/me");
-      setUserName(userData?.name || "Usuário");
+      try {
+        const userData = await apiRequest("/me");
+        setUserName(userData?.name || "Usuário");
+      } catch (error) {
+        console.error("Falha ao carregar perfil:", error);
+        
+        if (error.message.includes("401") || error.message.includes("Unauthorized")) {
+          handleLogout(); 
+        } else {
+          setUserName("Usuário");
+        }
+      }
     };
 
     loadUserProfile();

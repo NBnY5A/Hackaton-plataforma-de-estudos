@@ -16,7 +16,9 @@ export async function apiRequest(path, options = {}) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(data.error || "Erro na requisição");
+    const error = new Error(data.error || "Erro na requisição");
+    error.status = response.status;
+    throw error;
   }
 
   return data;
