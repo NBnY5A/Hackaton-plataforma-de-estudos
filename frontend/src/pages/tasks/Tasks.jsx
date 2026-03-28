@@ -16,7 +16,7 @@ const Tasks = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const { logout } = useAuth();
-  const { tasksList, isLoading, error, deleteTask, updateTask } = useTaks();
+  const { createTask, tasksList, isLoading, error, deleteTask, updateTask } = useTaks();
 
   const {
     activeTab,
@@ -72,7 +72,7 @@ const Tasks = () => {
 
         {error && <p className={styles.error}>{error}</p>}
 
-        <TaskForm isLoading={isLoading} />
+        <TaskForm createTask={createTask} isLoading={isLoading} />
 
         {activeTab === "all" && (
           <CategoryFilter

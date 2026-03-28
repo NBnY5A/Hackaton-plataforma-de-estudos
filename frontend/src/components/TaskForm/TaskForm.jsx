@@ -1,14 +1,11 @@
 import styles from "./TaskForm.module.css";
 import Button from "../Button/Button";
 import { useState } from "react";
-import useTasks from "../../hooks/useTasks";
 
-const TaskForm = ({ isLoading }) => {
+const TaskForm = ({ createTask, isLoading }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-
-  const { createTask } = useTasks();
 
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
