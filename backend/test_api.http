@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzc0NDY5MDIyLCJleHAiOjE3NzQ0NzI2MjJ9.YCruSIWt3dZN6ichiCFajCFpMYDh2pagCH-3bxW5Csg
+
+### 1. Autenticação (Apenas se precisar)
+
+# Login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "joao@email.com",
+  "password": "senha123"
+}
+
+### 2. Tarefas com Paginação e Filtros
+
+# Listar todas as tarefas (Padrão: página 1, limite 10)
+GET {{baseUrl}}/tasks
+Authorization: Bearer {{token}}
+
+###
+
+# Listar apenas tarefas CONCLUÍDAS (Histórico)
+GET {{baseUrl}}/tasks?status=completed
+Authorization: Bearer {{token}}
+
+###
+
+# Listar apenas tarefas PENDENTES
+GET {{baseUrl}}/tasks?status=pending
+Authorization: Bearer {{token}}
+
+###
+
+# Paginação (Ex: Página 2, com 5 itens por página)
+GET {{baseUrl}}/tasks?page=2&limit=5
+Authorization: Bearer {{token}}
+
+###
+
+# Marcar uma tarefa como concluída (Isso gera o completedAt)
+# Substitua o '1' pelo ID da tarefa
+PUT {{baseUrl}}/tasks/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "completed": true
+}
+
+###
+
+# Desmarcar uma tarefa como concluída (Limpa o completedAt)
+PUT {{baseUrl}}/tasks/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "completed": false
+}

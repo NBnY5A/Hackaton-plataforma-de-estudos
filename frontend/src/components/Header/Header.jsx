@@ -2,7 +2,7 @@ import { MenuBook } from "@mui/icons-material";
 import styles from "./Header.module.css";
 import Button from "../Button/Button";
 
-const Header = () => {
+const Header = ({ onOpenLoginModal }) => {
   return (
     <header className={styles.header}>
       <div className={styles.logoArea}>
@@ -15,8 +15,7 @@ const Header = () => {
       </div>
 
       <div className={styles.buttonArea}>
-        <Button onClick={/ TODO /} buttonContent="Registrar" />
-        <Button onClick={/ TODO /} buttonContent="Login" />
+        <Button onClick={onOpenLoginModal} buttonContent="Login" />
       </div>
     </header>
   );

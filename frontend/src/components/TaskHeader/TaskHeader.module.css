@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.header p {
+  color: var(--text-sub);
+  margin-top: 4px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.statPill {
+  font-size: 0.8rem;
+  border: 1px solid var(--border-color);
+  background: rgba(30, 41, 59, 0.55);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
