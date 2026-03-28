@@ -8,8 +8,7 @@ const TaskForm = ({ isLoading }) => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
-  const { createTask } =
-      useTaks();
+  const { createTask } = useTaks();
 
   const handleCreateSubmit = async (e) => {
     e.preventDefault();

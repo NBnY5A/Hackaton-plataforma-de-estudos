@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.BACKEND_API_URL || "http://localhost:3000/api";
+const API_BASE_URL =
+  import.meta.env.BACKEND_API_URL || "http://localhost:3000/api";
 
 export async function apiRequest(path, options = {}) {
   const jwtToken = localStorage.getItem("token");
@@ -12,7 +13,7 @@ export async function apiRequest(path, options = {}) {
     },
   });
 
-  const data = await response.json().catch(() => ({}))
+  const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
     throw new Error(data.error || "Erro na requisição");

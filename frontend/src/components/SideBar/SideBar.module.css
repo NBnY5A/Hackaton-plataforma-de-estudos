@@ -1,6 +1,10 @@
 .sidebar {
   border-right: 1px solid var(--border-color);
-  background: linear-gradient(180deg, rgba(23, 37, 84, 0.35), rgba(11, 17, 32, 0.85));
+  background: linear-gradient(
+    180deg,
+    rgba(23, 37, 84, 0.35),
+    rgba(11, 17, 32, 0.85)
+  );
   padding: 1rem;
   transition: width 0.25s ease;
   overflow: hidden;

@@ -5,20 +5,21 @@ export function useTaskFilters(taskList) {
   const [categoryFilter, setCategoryFilter] = useState("all");
 
   const categories = useMemo(() => {
-    const unique = new Set(taskList.map((task) => task.category).filter(Boolean));
+    const unique = new Set(
+      taskList.map((task) => task.category).filter(Boolean),
+    );
     return ["all", ...Array.from(unique)];
   }, [taskList]);
 
   const filteredTasks = useMemo(() => {
-      let list = [...taskList];
-      if (activeTab === "completed") list = list.filter((task) => task.completed);
-      if (activeTab === "pending") list = list.filter((task) => !task.completed);
-      if (activeTab === "all" && categoryFilter !== "all") {
-        list = list.filter((task) => task.category === categoryFilter);
-      }
-      return list;
-
-  }, [taskList, activeTab, categoryFilter]) 
+    let list = [...taskList];
+    if (activeTab === "completed") list = list.filter((task) => task.completed);
+    if (activeTab === "pending") list = list.filter((task) => !task.completed);
+    if (activeTab === "all" && categoryFilter !== "all") {
+      list = list.filter((task) => task.category === categoryFilter);
+    }
+    return list;
+  }, [taskList, activeTab, categoryFilter]);
 
   return {
     activeTab,
@@ -26,6 +27,6 @@ export function useTaskFilters(taskList) {
     categoryFilter,
     setCategoryFilter,
     categories,
-    filteredTasks
+    filteredTasks,
   };
 }

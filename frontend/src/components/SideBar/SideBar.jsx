@@ -5,10 +5,16 @@ import {
   ChevronRight,
   ListAlt,
   CheckCircleOutline,
-  PendingActions
+  PendingActions,
 } from "@mui/icons-material";
 
-const SideBar = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, stats }) => {
+const SideBar = ({
+  isSidebarOpen,
+  setIsSidebarOpen,
+  activeTab,
+  setActiveTab,
+  stats,
+}) => {
   return (
     <aside
       className={`${styles.sidebar} ${isSidebarOpen ? styles.open : styles.closed}`}
@@ -18,7 +24,7 @@ const SideBar = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, sta
         onClick={() => setIsSidebarOpen((prev) => !prev)}
         title={isSidebarOpen ? "Recolher menu" : "Expandir menu"}
       >
-        {isSidebarOpen ? <ChevronLeft/> : <ChevronRight />}
+        {isSidebarOpen ? <ChevronLeft /> : <ChevronRight />}
       </button>
 
       <nav className={styles.nav}>
