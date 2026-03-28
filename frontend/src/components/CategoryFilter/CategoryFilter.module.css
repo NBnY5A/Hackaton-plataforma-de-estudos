@@ -1,0 +1,19 @@
+.filterBar {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filterBar label {
+  color: var(--text-sub);
+  font-size: 0.9rem;
+}
+
+.filterBar select {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
