@@ -1,0 +1,64 @@
+.sidebar {
+  border-right: 1px solid var(--border-color);
+  background: linear-gradient(180deg, rgba(23, 37, 84, 0.35), rgba(11, 17, 32, 0.85));
+  padding: 1rem;
+  transition: width 0.25s ease;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+.sidebar.closed {
+  width: 82px;
+}
+
+.collapseBtn {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.6);
+  color: var(--text-main);
+  border-radius: 10px;
+  padding: 8px 0;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.nav {
+  display: grid;
+  gap: 8px;
+}
+
+.navItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.navLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.closed .navItem {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.navItem:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.navItem.active {
+  border-color: var(--primary-color);
+  background: rgba(59, 130, 246, 0.12);
+}
