@@ -1,86 +1,109 @@
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import styles from "./Tasks.module.css";
-import Button from "../../components/Button/Button";
 import useTaks from "../../hooks/useTasks";
 import TaskCard from "../../components/TaskCard/TaskCard";
+import { apiRequest } from "../../services/apiService";
+import { useTaskFilters } from "../../hooks/useTaskFilters";
+import TaskForm from "../../components/TaskForm/TaskForm";
+import SideBar from "../../components/SideBar/SideBar";
+import TaskHeader from "../../components/TaskHeader/TaskHeader";
+import CategoryFilter from "../../components/CategoryFilter/CategoryFilter";
 
 const Tasks = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [userName, setUserName] = useState("Usuário");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const { logout } = useAuth();
-  const { tasksList, isLoading, error, createTask, deleteTask, updateTask } =
+  const { tasksList, isLoading, error, deleteTask, updateTask } =
     useTaks();
+
+  const {
+    activeTab,
+    setActiveTab,
+    categoryFilter,
+    setCategoryFilter,
+    categories,
+    filteredTasks,
+  } = useTaskFilters(tasksList);
   const navigate = useNavigate();
 
-  const handleCreateSubmit = async (e) => {
-    e.preventDefault();
-    await createTask({ title, description, category });
-    setTitle("");
-    setDescription("");
-    setCategory("");
-  };
+  useEffect(() => {
+    /*TODO: Verificar porque a chamada de /users/me não está carregando o nome do usuário */
+    const loadUserProfile = async () => {
+      const userData = await apiRequest("/users/me");
+      setUserName(userData?.name || "Usuário");
+    };
+
+    loadUserProfile();
+  }, []);
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  const getEmptyMessage = () => {
+    if (activeTab === "completed") return "Nenhuma tarefa concluída ainda.";
+    if (activeTab === "pending") return "Nenhuma tarefa pendente no momento.";
+    if (categoryFilter !== "all") return "Nenhuma tarefa nessa categoria.";
+    return "Você ainda não possui nenhuma tarefa.";
+  };
+
   return (
-    <main className={styles.container}>
-      <div className={styles.topBar}>
-        <h1>Minhas Tarefas</h1>
-        <Button buttonContent="Sair" onClick={handleLogout} />
-      </div>
+    <main className={styles.page}>
+      <SideBar
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        stats={{
+          totalTasks: tasksList.length,
+          completedTasks: tasksList.filter((t) => t.completed).length,
+          pendingTasks: tasksList.filter((t) => !t.completed).length,
+        }}
+      />
 
-      {error && <p className={styles.error}>{error}</p>}
-
-      <form className={styles.form} onSubmit={handleCreateSubmit}>
-        <input
-          type="text"
-          placeholder="Título da tarefa"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
+      <section className={styles.content}>
+        <TaskHeader
+          userName={userName}
+          tasksList={tasksList}
+          onLogout={handleLogout}
         />
 
-        <textarea
-          placeholder="Descrição da tarefa"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
+        {error && <p className={styles.error}>{error}</p>}
+
+        <TaskForm
+          isLoading={isLoading}
         />
 
-        <input
-          type="text"
-          placeholder="Qual a categoria dessa tarefa?"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required
-        />
-
-        <Button
-          type="submit"
-          buttonContent={isLoading ? "Aguarde..." : "Adicionar tarefa"}
-        />
-      </form>
-
-      <section className={styles.list}>
-        {tasksList.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            onDelete={deleteTask}
-            onToggleComplete={(t) =>
-              updateTask(t.id, { completed: !t.completed })
-            }
-            onSaveEdit={updateTask}
-            isBusy = {isLoading}
+        {activeTab === "all" && (
+          <CategoryFilter
+            categories={categories}
+            selectedCategory={categoryFilter}
+            setCategoryFilter={setCategoryFilter}
           />
-        ))}
+        )}
+
+        <section className={styles.list}>
+          {filteredTasks.length === 0 ? (
+            <p className={styles.empty}>{getEmptyMessage()}</p>
+          ) : (
+            filteredTasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onDelete={deleteTask}
+                onToggleComplete={(t) =>
+                  updateTask(t.id, { completed: !t.completed })
+                }
+                onSaveEdit={updateTask}
+                isBusy={isLoading}
+              />
+            ))
+          )}
+        </section>
       </section>
     </main>
   );
