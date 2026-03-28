@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../services/apiService";
 
-export default function useTaks() {
+export default function useTasks() {
   const [tasksList, setTaskList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
