@@ -5,7 +5,6 @@ const TaskHeader = ({ userName, tasksList, onLogout }) => {
   const completedTasks = tasksList.filter((task) => task.completed).length;
   const pendingTasks = totalTasks - completedTasks;
   return (
-    /*TODO: Nome do usuário não aparece no header, verificar a função `loadUserProfile`*/
     <header className={styles.header}>
       <div>
         <h1>Olá, {userName}</h1>

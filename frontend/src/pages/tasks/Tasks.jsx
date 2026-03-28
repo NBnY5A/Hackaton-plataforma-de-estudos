@@ -29,9 +29,8 @@ const Tasks = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    /*TODO: Verificar porque a chamada de /users/me não está carregando o nome do usuário */
     const loadUserProfile = async () => {
-      const userData = await apiRequest("/users/me");
+      const userData = await apiRequest("/me");
       setUserName(userData?.name || "Usuário");
     };
 
