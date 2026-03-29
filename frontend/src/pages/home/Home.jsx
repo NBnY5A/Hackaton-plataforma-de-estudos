@@ -1,14 +1,25 @@
 import Header from "../../components/Header/Header";
 import Card from "../../components/Card/Card";
+import { useState } from "react";
 import { BarChart, FlashOn, Settings } from "@mui/icons-material";
 import styles from "./Home.module.css";
 import Button from "../../components/Button/Button";
+import LoginModal from "../../components/LoginModal/LoginModal";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div>
-      <Header />
-
+      <Header onOpenLoginModal={() => setIsLoginModalOpen(true)} />
+      {isLoginModalOpen && (
+        <LoginModal
+          onClose={() => setIsLoginModalOpen(false)}
+          onAuthSuccess={() => navigate("/tarefas")}
+        />
+      )}
       <section className={styles.hero}>
         <div className={styles.glowLeft}></div>
         <div className={styles.glowRight}></div>
@@ -19,7 +30,10 @@ const Home = () => {
           tarefa importante
         </p>
         <div className={styles.buttonWrapper}>
-          <Button buttonContent="Quero conhecer!" />
+          <Button
+            buttonContent="Quero conhecer!"
+            onClick={() => setIsLoginModalOpen(true)}
+          />
         </div>
       </section>
 
