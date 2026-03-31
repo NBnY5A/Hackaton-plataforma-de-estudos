@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import Tarefas from "./components/Tarefas";
 import NovaTarefa from "./components/NovaTarefa";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   // 1. Estados para armazenar os dados, carregamento e erros
   const [tarefas, setTarefas] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // 2. useEffect para o side effect (fetch)
   // Definindo a função assíncrona dentro do efeito
@@ -74,15 +76,15 @@ function App() {
 
     await fetch(`http://localhost:3000/tarefa/${tarefa.id}`, {
       method: "DELETE",
-      //headers: {
-      //  "Content-Type": "application/json",
-      //},
-      //body: JSON.stringify({
-      //  titulo: tarefa.titulo,
-      //  descricao: tarefa.descricao,
-      //  categoria: tarefa.categoria,
-      //  finalizada: !tarefa.finalizada,
-      //}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        titulo: tarefa.titulo,
+        descricao: tarefa.descricao,
+        categoria: tarefa.categoria,
+        finalizada: !tarefa.finalizada,
+      }),
     });
 
     fetchtarefas();
@@ -113,7 +115,9 @@ function App() {
     fetchtarefas();
   }
 
-  async function onEditarClick(tarefa) {}
+  async function onEditClick(tarefa) {
+    navigate(`/detalhes?id=${tarefa.id}`, { state: { tarefa } });
+  }
 
   return (
     <div className="">
@@ -127,6 +131,7 @@ function App() {
             tarefas={tarefas}
             onTarefaClick={onTarefaClick}
             onDeleteClick={onDeleteClick}
+            onEditClick={onEditClick}
           />
         </div>
       </div>

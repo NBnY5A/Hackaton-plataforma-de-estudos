@@ -8,9 +8,7 @@ function Tarefa(props) {
           <div className="tarefa-item flex">
             <div
               className="tarefa-info"
-              onClick={() => {
-                props.onTarefaClick(tarefa);
-              }}
+              onClick={() => props.onTarefaClick(tarefa)}
             >
               <div className="tarefa-tit-desc">
                 <div className="tarefa-titulo">
@@ -39,18 +37,14 @@ function Tarefa(props) {
 
             <button
               className="hover:bg-[#d6d5a9]!"
-              onClick={() => {
-                props.onDeleteClick(tarefa);
-              }}
+              onClick={() => props.onDeleteClick(tarefa)}
             >
               <Trash />
             </button>
 
             <button
               className="hover:bg-[#d6d5a9]!"
-              onClick={() => {
-                props.onDeleteClick(tarefa);
-              }}
+              onClick={() => props.onEditClick(tarefa)}
             >
               <Pencil />
             </button>

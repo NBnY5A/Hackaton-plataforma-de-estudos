@@ -41,7 +41,7 @@ function ListaTarefas(props) {
         name="categoria"
       />
       <button
-        className="btn-nova-tarefa "
+        className="btn-nova-tarefa hover:bg-[#d6d5a9]!"
         onClick={() => {
           props.onNovaTarefaSubmit(titulo, descricao, categoria);
         }}
