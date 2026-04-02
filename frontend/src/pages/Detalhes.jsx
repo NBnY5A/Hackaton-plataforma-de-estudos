@@ -1,5 +1,6 @@
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Input from "../components/Input";
 
 function Detalhes() {
   const [searchParams] = useSearchParams();
@@ -13,7 +14,7 @@ function Detalhes() {
   const [categoria, setCategoria] = useState(tarefa.categoria);
 
   function onVoltarClick() {
-    navigate(`/`);
+    navigate(-1);
   }
 
   async function onAtualizarTarefaClick(titulo, descricao, categoria) {
@@ -35,56 +36,54 @@ function Detalhes() {
   }
 
   return (
-    <div className="nova-tarefa ">
-      <label htmlFor="titulo">Título</label>
-      <input
-        className=""
-        type="text"
-        placeholder="Informe o titulo..."
-        name="titulo"
-        value={titulo}
-        onChange={(event) => {
-          setTitulo(event.target.value);
-        }}
-      />
-      <label htmlFor="descricao">Descrição</label>
-      <input
-        className=""
-        type="text"
-        placeholder="Informe a descricao..."
-        name="descricao"
-        value={descricao}
-        onChange={(event) => {
-          setDescricao(event.target.value);
-        }}
-      />
-      <label htmlFor="categorias">Categoria</label>
-      <input
-        className=""
-        type="text"
-        placeholder="Informe a categoria..."
-        name="categoria"
-        value={categoria}
-        onChange={(event) => {
-          setCategoria(event.target.value);
-        }}
-      />
-
-      <button
-        className="mt-5! mb-5! hover:bg-[#d6d5a9]!"
-        onClick={() => onAtualizarTarefaClick(titulo, descricao, categoria)}
-      >
+    <div>
+      <h1 className="text-black text-3xl flex justify-center mt-3 bg-(--main-color) border">
         Atualizar Tarefa
-      </button>
+      </h1>
 
-      <button
-        className=" hover:bg-[#d6d5a9]!"
-        onClick={() => {
-          onVoltarClick();
-        }}
-      >
-        Voltar
-      </button>
+      <div className="nova-border black bg-(--main-color) w-[80vw] my-[20px] mx-0 flex flex-col p-[10px] ">
+        <label htmlFor="titulo">Título</label>
+        <Input
+          type="text"
+          placeholder="Informe o titulo..."
+          name="titulo"
+          value={titulo}
+          onChange={(event) => {
+            setTitulo(event.target.value);
+          }}
+        />
+        <label htmlFor="descricao">Descrição</label>
+        <Input
+          type="text"
+          placeholder="Informe a descricao..."
+          name="descricao"
+          value={descricao}
+          onChange={(event) => {
+            setDescricao(event.target.value);
+          }}
+        />
+        <label htmlFor="categorias">Categoria</label>
+        <Input
+          type="text"
+          placeholder="Informe a categoria..."
+          name="categoria"
+          value={categoria}
+          onChange={(event) => {
+            setCategoria(event.target.value);
+          }}
+        />
+
+        <button
+          className="mt-5! mb-5! hover:bg-(--hover-color)!"
+          onClick={() => onAtualizarTarefaClick(titulo, descricao, categoria)}
+        >
+          Atualizar Tarefa
+        </button>
+
+        <button className=" hover:bg-(--hover-color)!" onClick={onVoltarClick}>
+          Voltar
+        </button>
+      </div>
     </div>
   );
 }

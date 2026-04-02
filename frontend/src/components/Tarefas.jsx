@@ -5,20 +5,20 @@ function Tarefa(props) {
     <ul>
       {props.tarefas.map((tarefa) => (
         <li key={tarefa.id}>
-          <div className="tarefa-item flex">
+          <div className="bg-white border black flex mb-[10px] min-h-0 min-w-0 cursor-pointer">
             <div
-              className="tarefa-info"
+              className="flex min-h-0 min-w-0 w-[100%] h-[100%] hover:bg-(--hover-color)!"
               onClick={() => props.onTarefaClick(tarefa)}
             >
-              <div className="tarefa-tit-desc">
-                <div className="tarefa-titulo">
+              <div className="flex flex-col flex-3 min-w-0">
+                <div className="m-0 border black overflow-hidden flex-2 p-[5px] wrap-break-word">
                   <p
                     className={`p-titulo ${tarefa.finalizada && "line-through"}`}
                   >
                     {tarefa.titulo}
                   </p>
                 </div>
-                <div className="tarefa-descricao">
+                <div className="m-0 border black overflow-hidden flex-2 px-[10px] py-[5px] wrap-break-word">
                   <p
                     className={`p-descricao ${tarefa.finalizada && "line-through"}`}
                   >
@@ -26,7 +26,7 @@ function Tarefa(props) {
                   </p>
                 </div>
               </div>
-              <div className="tarefa-categoria">
+              <div className="border overflow-hidden flex flex-1 items-center justify-center min-w-0 wrap-break-word m-0">
                 <p
                   className={`p-categoria ${tarefa.finalizada && "line-through"}`}
                 >
@@ -36,14 +36,14 @@ function Tarefa(props) {
             </div>
 
             <button
-              className="hover:bg-[#d6d5a9]!"
+              className="hover:bg-(--hover-color)!"
               onClick={() => props.onDeleteClick(tarefa)}
             >
               <Trash />
             </button>
 
             <button
-              className="hover:bg-[#d6d5a9]!"
+              className="hover:bg-(--hover-color)!"
               onClick={() => props.onEditClick(tarefa)}
             >
               <Pencil />

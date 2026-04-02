@@ -116,17 +116,22 @@ function App() {
   }
 
   async function onEditClick(tarefa) {
-    navigate(`/detalhes?id=${tarefa.id}`, { state: { tarefa } });
+    const query = new URLSearchParams();
+    query.set("id", tarefa.id);
+
+    navigate(`/detalhes?id=${query.toString()}`, { state: { tarefa } });
   }
 
   return (
-    <div className="">
-      <div className="tarefas">
-        <h1 className="text-white text-3xl font-mono text-al">Tarefas</h1>
+    <div className="font-serif!">
+      <div>
+        <h1 className="text-black text-3xl flex justify-center mt-3 bg-(--main-color) border">
+          Tarefas
+        </h1>
 
         <NovaTarefa onNovaTarefaSubmit={onNovaTarefaSubmit} />
 
-        <div className="lista-tarefas">
+        <div className="w-[80vw] border bg-(--main-color) mt-[20px] flex flex-col justify-center p-[10px]">
           <Tarefas
             tarefas={tarefas}
             onTarefaClick={onTarefaClick}

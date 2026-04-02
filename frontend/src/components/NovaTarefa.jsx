@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input";
 
 function ListaTarefas(props) {
   const [titulo, setTitulo] = useState("");
@@ -6,42 +7,39 @@ function ListaTarefas(props) {
   const [categoria, setCategoria] = useState("");
 
   return (
-    <div className="nova-tarefa ">
+    <div className="border black bg-(--main-color) w-[80vw] my-[20px] mx-0 flex flex-col p-[10px]">
       <label htmlFor="titulo">Título</label>
-      <input
-        className=""
-        value={titulo}
+      <Input
         onChange={(event) => {
           setTitulo(event.target.value);
         }}
+        value={titulo}
         type="text"
         placeholder="Informe o titulo..."
         name="titulo"
       />
       <label htmlFor="descricao">Descrição</label>
-      <input
-        className=""
-        value={descricao}
+      <Input
         onChange={(event) => {
           setDescricao(event.target.value);
         }}
+        value={descricao}
         type="text"
         placeholder="Informe a descricao..."
         name="descricao"
       />
       <label htmlFor="categorias">Categoria</label>
-      <input
-        className=""
-        value={categoria}
+      <Input
         onChange={(event) => {
           setCategoria(event.target.value);
         }}
+        value={categoria}
         type="text"
         placeholder="Informe a categoria..."
         name="categoria"
       />
       <button
-        className="btn-nova-tarefa hover:bg-[#d6d5a9]!"
+        className="bg-white p-[10px] cursor-pointer border black mt-[20px] hover:bg-(--hover-color)!"
         onClick={() => {
           props.onNovaTarefaSubmit(titulo, descricao, categoria);
         }}
