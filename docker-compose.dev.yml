@@ -16,6 +16,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  frontend:
+    image: mytaskshub-frontend:1.0
+    container_name: mytaskshub-frontend
+    environment:
+      - VITE_BACKEND_API_URL=${VITE_BACKEND_API_URL:-http://localhost:3000/api}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/usr/app           
+      - /usr/app/node_modules 
+    ports:
+      - "5173:5173"
+
   backend:
     image: mytaskshub-backend:1.0
     container_name: mytaskshub-backend
@@ -24,7 +38,7 @@ services:
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
       JWT_SECRET: ${JWT_SECRET:-sua-chave-secreta-de-256-caracteres}
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile.dev
     depends_on:
       postgres:
@@ -32,7 +46,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/app
+      - ./backend:/usr/app
       - /usr/app/node_modules
     command: sh -c "npx prisma db push && npm run dev"
 

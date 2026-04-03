@@ -1,6 +1,6 @@
 # Node.js Kizathon (Backend)
 
-Esta é a API backend para a plataforma de estudos do kizathon, construída para integração com frontend.
+Esta é a API backend para a plataforma de estudos do kizathon, construída para integração com frontend. Você pode optar por rodar o backend isoladamente via docker ou ambiente local, logo abaixo tem instruções de como você pode rodar das duas formas.
 
 ## Stack Tecnológica
 
@@ -13,7 +13,7 @@ Esta é a API backend para a plataforma de estudos do kizathon, construída para
 
 ---
 
-## Como rodar o projeto
+## Como rodar o backend localmente
 
 1. **Instalar dependências:**
    ```bash
@@ -22,15 +22,20 @@ Esta é a API backend para a plataforma de estudos do kizathon, construída para
 
 2. **Subir o Banco de Dados (Docker):**
    ```bash
-   docker-compose up -d
+   docker-compose up -d postgres
    ```
 
 3. **Configurar Variáveis de Ambiente:**
-   Crie um arquivo `.env` na raiz com as seguintes chaves:
+   Copie o arquivo `.env.example` e renomeie-o para `.env`, abaixo está um exemplo de como devem ficar suas variáveis de ambiente:
    ```env
+   POSTGRES_USER=teste
+   POSTGRES_PASSWORD=teste
+   POSTGRES_DB=teste
+
    DATABASE_URL="postgresql://teste:teste@localhost:5432/teste"
    PORT=3000
    JWT_SECRET=sua_chave_secreta_aqui
+   FRONTEND_URL="http://localhost:5173"
    ```
 
 4. **Sincronizar Banco e Gerar Prisma Client:**
@@ -45,6 +50,14 @@ Esta é a API backend para a plataforma de estudos do kizathon, construída para
    ```
 
 ---
+
+## 🚀 Como rodar o backend via docker
+
+Com o docker iniciado e na pasta **`backend`**, basta apenas rodar o comando abaixo: 
+
+```bash
+docker-compose up -d
+```
 
 ## Autenticação (Guia para Frontend)
 
