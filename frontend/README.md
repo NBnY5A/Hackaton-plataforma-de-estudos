@@ -1,6 +1,6 @@
 # Frontend - Hackaton Plataforma de Estudos
 
-Aplicação frontend construída com **React + Vite**, com tema visual **Deep Ocean** e tipografia **Poppins**.
+Aplicação frontend construída com **React + Vite**, com tema visual **Deep Ocean** e tipografia **Poppins**. Assim como o backend, o frontend também possui duas formas de rodar, localmente ou via docker, abaixo tem as instruções de como rodar das duas formas.
 
 ## 📋 Pré-requisitos
 
@@ -8,8 +8,9 @@ Antes de começar, garanta que você tem instalado:
 
 - **Node.js** (recomendado: 18+)
 - **npm** (ou pnpm/yarn)
+- **Docker** (opcional, porém preferível)
 
-## 🚀 Como rodar o frontend
+## 🚀 Como rodar o frontend localmente
 
 1. Entre na pasta do frontend:
 
@@ -25,10 +26,10 @@ npm install
 
 3. Configure as variáveis de ambiente (se ainda não existir):
 
-Crie um arquivo `.env` na raiz do frontend:
+Copie o arquivo `.env.example` e renomeie-o para `.env` na raiz do frontend, abaixo está um exemplo de como devem ficar suas variáveis de ambiente:
 
 ```env
-BACKEND_API_URL=http://localhost:3000/api
+VITE_BACKEND_API_URL=http://localhost:3000/api
 ```
 
 4. Inicie o servidor de desenvolvimento:
@@ -42,6 +43,14 @@ npm run dev
 - `http://localhost:5173`
 
 ---
+
+## 🚀 Como rodar o frontend via docker
+
+Com o docker iniciado, na pasta **`frontend`** digite o comando abaixo no seu terminal:
+
+```bash
+docker-compose up -d
+```
 
 ## 🔧 Comandos principais
 
@@ -81,7 +90,7 @@ Este frontend espera um backend rodando em:
 Se necessário, ajuste no arquivo `.env`:
 
 ```env
-BACKEND_API_URL=http://localhost:3000/api
+VITE_BACKEND_API_URL=http://localhost:3000/api
 ```
 
 ---
