@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mytaskshub-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-mytaskshub-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-senha123}
+      POSTGRES_DB: ${POSTGRES_DB:-mytaskshub}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mytaskshub-admin -d mytaskshub"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  frontend:
+    image: mytaskshub-frontend:1.0
+    container_name: mytaskshub-frontend
+    environment:
+      - VITE_BACKEND_API_URL=${VITE_BACKEND_API_URL:-http://localhost:3000/api}
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/usr/app           
+      - /usr/app/node_modules 
+    ports:
+      - "5173:5173"
+
+  backend:
+    image: mytaskshub-backend:1.0
+    container_name: mytaskshub-backend
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://mytaskshub-admin:senha123@mytaskshub-db:5432/mytaskshub}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+      JWT_SECRET: ${JWT_SECRET:-sua-chave-secreta-de-256-caracteres}
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/app
+      - /usr/app/node_modules
+    command: sh -c "npx prisma db push && npm run dev"
+
+
+volumes:
+  postgres_data:
