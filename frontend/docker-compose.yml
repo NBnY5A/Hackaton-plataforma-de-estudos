@@ -3,7 +3,7 @@ services:
     image: mytaskshub-frontend:1.0
     container_name: mytaskshub-frontend
     environment:
-      - VITE_BACKEND_API_URL=${VITE_BACKEND_API_URL:-http://localhost:3000}
+      - VITE_BACKEND_API_URL=${VITE_BACKEND_API_URL:-http://localhost:3000/api}
     build:
       context: .
       dockerfile: Dockerfile.dev
