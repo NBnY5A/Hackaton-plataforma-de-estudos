@@ -21,6 +21,7 @@ services:
     container_name: mytaskshub-backend
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://mytaskshub-admin:senha123@mytaskshub-db:5432/mytaskshub}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
       JWT_SECRET: ${JWT_SECRET:-sua-chave-secreta-de-256-caracteres}
     build:
       context: .
