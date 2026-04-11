@@ -17,13 +17,9 @@
         "url": {
           "raw": "http://localhost:3000/tarefas",
           "protocol": "http",
-          "host": [
-            "localhost"
-          ],
+          "host": ["localhost"],
           "port": "3000",
-          "path": [
-            "tarefas"
-          ]
+          "path": ["tarefas"]
         }
       },
       "response": []
@@ -36,14 +32,9 @@
         "url": {
           "raw": "http://localhost:3000/tarefas/?titulo=tarefa 2",
           "protocol": "http",
-          "host": [
-            "localhost"
-          ],
+          "host": ["localhost"],
           "port": "3000",
-          "path": [
-            "tarefas",
-            ""
-          ],
+          "path": ["tarefas", ""],
           "query": [
             {
               "key": "titulo",
@@ -72,15 +63,11 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/tarefa",
+          "raw": "http://localhost:3000/tarefas",
           "protocol": "http",
-          "host": [
-            "localhost"
-          ],
+          "host": ["localhost"],
           "port": "3000",
-          "path": [
-            "tarefa"
-          ]
+          "path": ["tarefa"]
         }
       },
       "response": []
@@ -103,16 +90,11 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/tarefa/892cfa75-ce6a-461e-9932-52b2da83923b",
+          "raw": "http://localhost:3000/tarefas/892cfa75-ce6a-461e-9932-52b2da83923b",
           "protocol": "http",
-          "host": [
-            "localhost"
-          ],
+          "host": ["localhost"],
           "port": "3000",
-          "path": [
-            "tarefa",
-            "892cfa75-ce6a-461e-9932-52b2da83923b"
-          ]
+          "path": ["tarefa", "892cfa75-ce6a-461e-9932-52b2da83923b"]
         }
       },
       "response": []
@@ -126,16 +108,11 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/tarefa/892cfa75-ce6a-461e-9932-52b2da83923b",
+          "raw": "http://localhost:3000/tarefas/892cfa75-ce6a-461e-9932-52b2da83923b",
           "protocol": "http",
-          "host": [
-            "localhost"
-          ],
+          "host": ["localhost"],
           "port": "3000",
-          "path": [
-            "tarefa",
-            "892cfa75-ce6a-461e-9932-52b2da83923b"
-          ]
+          "path": ["tarefa", "892cfa75-ce6a-461e-9932-52b2da83923b"]
         }
       },
       "response": []

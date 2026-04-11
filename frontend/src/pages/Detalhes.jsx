@@ -18,7 +18,9 @@ function Detalhes() {
   }
 
   async function onAtualizarTarefaClick(titulo, descricao, categoria) {
-    await fetch(`http://localhost:3000/tarefa/${id}`, {
+    console.log(`http://localhost:3000/tarefas/${id}`);
+    console.log(titulo, descricao, categoria);
+    await fetch(`http://localhost:3000/tarefas/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +33,6 @@ function Detalhes() {
       }),
     });
 
-    //fetchtarefas();
     navigate(`/`);
   }
 

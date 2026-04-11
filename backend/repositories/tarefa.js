@@ -1,7 +1,13 @@
+import "dotenv/config";
 import { randomUUID } from "crypto";
-import { sql } from "./server.js";
+import postgres from "postgres";
 
-export class Database {
+const sql = postgres(process.env.DATABASE_URL, {
+  ssl: "require",
+  prepare: false,
+});
+
+class TarefaRepository {
   async create(tarefa) {
     const id = randomUUID();
     const { titulo, descricao, categoria, finalizada } = tarefa;
@@ -32,3 +38,5 @@ export class Database {
     await sql`delete from tarefas where id=${id}`;
   }
 }
+
+export default new TarefaRepository();

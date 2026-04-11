@@ -4,58 +4,24 @@ import NovaTarefa from "./components/NovaTarefa";
 import { useNavigate } from "react-router-dom";
 
 function App() {
-  // 1. Estados para armazenar os dados, carregamento e erros
-  const [tarefas, setTarefas] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [tarefas, setTarefas] = useState([]);
   const navigate = useNavigate();
 
   // 2. useEffect para o side effect (fetch)
-  // Definindo a função assíncrona dentro do efeito
   const fetchtarefas = async () => {
-    try {
-      setLoading(true); // Inicia o loading
-      const response = await fetch("http://localhost:3000/tarefas");
+    const response = await fetch("http://localhost:3000/tarefas");
 
-      // Verifica se a resposta foi bem sucedida (status 200-299)
-      if (!response.ok) {
-        throw new Error(`Erro HTTP! status: ${response.status}`);
-      }
-
-      const json = await response.json(); // Converte para JSON
-      json.sort();
-      setTarefas(json); // Define o estado com os dados
-    } catch (err) {
-      setError(err.message); // Captura erros
-    } finally {
-      setLoading(false); // Finaliza o loading
-    }
+    const json = await response.json();
+    json.sort();
+    setTarefas(json);
   };
 
-  useEffect(
-    () => {
-      fetchtarefas();
-    },
-
-    [], // Array de dependências vazio significa: rodar apenas uma vez na montagem
-  );
-
-  // 3. Renderização Condicional
-  if (loading)
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Carregando...
-      </div>
-    );
-  if (error)
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Erro: {error}
-      </div>
-    );
+  useEffect(() => {
+    fetchtarefas();
+  }, []);
 
   async function onTarefaClick(tarefa) {
-    await fetch(`http://localhost:3000/tarefa/${tarefa.id}`, {
+    await fetch(`http://localhost:3000/tarefas/${tarefa.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +40,7 @@ function App() {
   async function onDeleteClick(tarefa) {
     if (!confirm("Você tem certeza que deseja excluir este item?")) return;
 
-    await fetch(`http://localhost:3000/tarefa/${tarefa.id}`, {
+    await fetch(`http://localhost:3000/tarefas/${tarefa.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +65,7 @@ function App() {
       return alert("preencha os campos!");
     }
 
-    await fetch(`http://localhost:3000/tarefa`, {
+    await fetch(`http://localhost:3000/tarefas`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,10 +82,7 @@ function App() {
   }
 
   async function onEditClick(tarefa) {
-    const query = new URLSearchParams();
-    query.set("id", tarefa.id);
-
-    navigate(`/detalhes?id=${query.toString()}`, { state: { tarefa } });
+    navigate(`/detalhes?id=${tarefa.id}`, { state: { tarefa } });
   }
 
   return (
