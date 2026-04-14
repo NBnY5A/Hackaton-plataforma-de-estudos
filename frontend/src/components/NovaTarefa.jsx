@@ -39,7 +39,7 @@ function ListaTarefas(props) {
         name="categoria"
       />
       <button
-        className="bg-white p-[10px] cursor-pointer border black mt-[20px] hover:bg-(--hover-color)!"
+        className="bg-white p-2.5 cursor-pointer border black mt-5 hover:bg-(--hover-color)!"
         onClick={() => {
           props.onNovaTarefaSubmit(titulo, descricao, categoria);
         }}
