@@ -5,20 +5,20 @@ function Tarefa(props) {
     <ul>
       {props.tarefas.map((tarefa) => (
         <li key={tarefa.id}>
-          <div className="bg-white border black flex mb-[10px] min-h-0 min-w-0 cursor-pointer">
+          <div className="bg-white border black flex mb-2.5 min-h-0 min-w-0 cursor-pointer">
             <div
-              className="flex min-h-0 min-w-0 w-[100%] h-[100%] hover:bg-(--hover-color)!"
+              className="flex min-h-0 min-w-0 w-full h-full hover:bg-(--hover-color)!"
               onClick={() => props.onTarefaClick(tarefa)}
             >
               <div className="flex flex-col flex-3 min-w-0">
-                <div className="m-0 border black overflow-hidden flex-2 p-[5px] wrap-break-word">
+                <div className="m-0 border black overflow-hidden flex-2 p-1.25 wrap-break-word">
                   <p
                     className={`p-titulo ${tarefa.finalizada && "line-through"}`}
                   >
                     {tarefa.titulo}
                   </p>
                 </div>
-                <div className="m-0 border black overflow-hidden flex-2 px-[10px] py-[5px] wrap-break-word">
+                <div className="m-0 border black overflow-hidden flex-2 px-2.5 py-1.25 wrap-break-word">
                   <p
                     className={`p-descricao ${tarefa.finalizada && "line-through"}`}
                   >

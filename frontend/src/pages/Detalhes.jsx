@@ -1,40 +1,37 @@
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Input from "../components/Input";
+import { useTarefas } from "../hooks/useTarefas.js";
 
 function Detalhes() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const { state } = useLocation();
-  const tarefa = state.tarefa;
   const navigate = useNavigate();
+  const { tarefas, atualizarTarefa } = useTarefas();
 
-  const [titulo, setTitulo] = useState(tarefa.titulo);
-  const [descricao, setDescricao] = useState(tarefa.descricao);
-  const [categoria, setCategoria] = useState(tarefa.categoria);
+  const tarefa = tarefas.find((t) => t.id === id);
 
-  function onVoltarClick() {
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [categoria, setCategoria] = useState("");
+
+  useEffect(() => {
+    if (tarefa) {
+      setTitulo(tarefa.titulo);
+      setDescricao(tarefa.descricao);
+      setCategoria(tarefa.categoria);
+    }
+  }, [tarefa]);
+
+  const handleVoltar = () => {
     navigate(-1);
-  }
+  };
 
-  async function onAtualizarTarefaClick(titulo, descricao, categoria) {
-    console.log(`http://localhost:3000/tarefas/${id}`);
-    console.log(titulo, descricao, categoria);
-    await fetch(`http://localhost:3000/tarefas/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        titulo: titulo,
-        descricao: descricao,
-        categoria: categoria,
-        finalizada: false,
-      }),
-    });
-
+  const handleAtualizarTarefaSubmit = async (tarefa) => {
+    console.log(tarefa);
+    atualizarTarefa(tarefa);
     navigate(`/`);
-  }
+  };
 
   return (
     <div>
@@ -42,7 +39,7 @@ function Detalhes() {
         Atualizar Tarefa
       </h1>
 
-      <div className="nova-border black bg-(--main-color) w-[80vw] my-[20px] mx-0 flex flex-col p-[10px] ">
+      <div className="nova-border black bg-(--main-color) w-[80vw] my-5 mx-0 flex flex-col p-2.5 ">
         <label htmlFor="titulo">Título</label>
         <Input
           type="text"
@@ -76,12 +73,14 @@ function Detalhes() {
 
         <button
           className="mt-5! mb-5! hover:bg-(--hover-color)!"
-          onClick={() => onAtualizarTarefaClick(titulo, descricao, categoria)}
+          onClick={() =>
+            handleAtualizarTarefaSubmit({ id, titulo, descricao, categoria })
+          }
         >
           Atualizar Tarefa
         </button>
 
-        <button className=" hover:bg-(--hover-color)!" onClick={onVoltarClick}>
+        <button className=" hover:bg-(--hover-color)!" onClick={handleVoltar}>
           Voltar
         </button>
       </div>
