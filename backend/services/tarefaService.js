@@ -1,4 +1,4 @@
-import tarefaRepository from "../repositories/tarefa.js";
+import tarefaRepository from "../repositories/tarefaRepository.js";
 
 function validarTarefa(tarefa) {
   if (!tarefa.titulo?.trim()) {

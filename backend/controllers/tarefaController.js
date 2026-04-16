@@ -1,4 +1,4 @@
-import * as tarefaService from "../services/tarefa.js";
+import * as tarefaService from "../services/tarefaService.js";
 
 export async function listarTarefas(req, res) {
   const tarefas = await tarefaService.listar(req.query.titulo);

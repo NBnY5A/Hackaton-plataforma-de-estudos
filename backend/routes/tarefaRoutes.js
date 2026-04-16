@@ -4,7 +4,7 @@ import {
   criarTarefa,
   deletarTarefa,
   listarTarefas,
-} from "../controllers/tarefas.js";
+} from "../controllers/tarefaController.js";
 
 const rotasTarefa = express.Router();
 

@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import rotasTarefa from "./routes/tarefa.js";
+import rotasTarefa from "./routes/tarefaRoutes.js";
 
 const server = express();
 const port = 3000;
